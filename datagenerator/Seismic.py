@@ -180,6 +180,7 @@ class SeismicVolume(Geomodel):
                 rfc_fullstack_scaled,
                 f"{fname}fullstack",
             )
+            raise ExitMainFunction("Exiting main function")
 
         cumsum = self.apply_cumsum(bandlimited)
         if filename_suffix == "":
