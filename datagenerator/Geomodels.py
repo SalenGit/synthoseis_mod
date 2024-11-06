@@ -297,7 +297,7 @@ class Geomodel:
         from datagenerator.util import plot_voxels_not_in_regular_layers
         from datagenerator.util import find_line_with_most_voxels
         from datagenerator.util import import_matplotlib
-
+        '''
         plt = import_matplotlib()
 
         # find inline with the most channel voxels
@@ -338,7 +338,7 @@ class Geomodel:
         )
         plt.savefig(image_path, format="png")
         plt.close()
-
+        '''
         # analyze voxel values not in regular layers
         title = "Example Trav through 3D model\nhistogram of voxels related to channel facies / before faulting"
         pname = "QC_plot__Channels__histogram_beforeFaulting.png"

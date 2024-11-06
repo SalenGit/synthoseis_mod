@@ -195,5 +195,5 @@ def plot_wavelets(freqs, ampls, wavs, labels, savepng=None):
     for a in axs.ravel():
         a.grid()
         a.legend(loc="upper right")
-    if savepng is not None:
-        fig.savefig(savepng)
+    #if savepng is not None:
+    #    fig.savefig(savepng)

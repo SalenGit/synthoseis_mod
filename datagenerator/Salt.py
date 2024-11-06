@@ -374,7 +374,7 @@ class SaltModel:
         depth_maps = self.cfg.h5file.root.ModelData.faulted_depth_maps[:]
         depth_maps_gaps = self.cfg.h5file.root.ModelData.faulted_depth_maps_gaps[:]
         salt_segments = self.cfg.h5file.root.ModelData.salt_segments[:]
-
+        '''
         if self.cfg.model_qc_volumes:
             np.save(f"{self.cfg.work_subfolder}/depth_maps_presalt.npy", depth_maps)
             np.save(
@@ -382,7 +382,7 @@ class SaltModel:
                 depth_maps_gaps,
             )
             np.save(f"{self.cfg.work_subfolder}/salt_segments.npy", salt_segments)
-
+        '''
         depth_maps_salt = np.zeros_like(depth_maps_gaps)
         depth_maps_gaps_salt = np.zeros_like(depth_maps_gaps)
 

@@ -456,7 +456,7 @@ class ChannelBelt:
         :param scale: scaling factor (e.g., 2) that determines how many times larger you want the frame to be, compared to the default scaling of the figure
         :param end_time: time at which simulation should be stopped
         :param n_channels: total number of channels + cutoffs for which simulation is run (usually it is len(chb.cutoffs) + len(chb.channels)). Used when plot_type = 'age'"""
-
+        '''
         sclt = np.array(self.cl_times)
         if type(end_time) != list:
             sclt = sclt[sclt <= end_time]
@@ -486,6 +486,7 @@ class ChannelBelt:
             fname = dirname + filename + "%03d.png" % (i)
             fig.savefig(fname, bbox_inches="tight")
             plt.close()
+        '''
 
     def build_3d_model(
         self,

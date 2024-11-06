@@ -77,7 +77,7 @@ def plot_voxels_not_in_regular_layers(
         Returns
         -------
         None
-    """
+
     plt = import_matplotlib()
     voxels = volume[volume > threshold]
     plt.figure(1, figsize=(20, 15))
@@ -86,6 +86,8 @@ def plot_voxels_not_in_regular_layers(
     plt.hist(voxels, 81)
     plt.savefig(os.path.join(cfg.work_subfolder, png_name), format="png")
     plt.close(1)
+    """
+    print('passed')
 
 
 def plot_xsection(volume, maps, line_num, title, png_name, cfg, cmap="prism") -> None:
@@ -112,7 +114,7 @@ def plot_xsection(volume, maps, line_num, title, png_name, cfg, cmap="prism") ->
     Returns
     -------
     None
-    """
+
     plt = import_matplotlib()
     plt.clf()
     plt.title(f"{title}\nInline: {line_num}")
@@ -141,7 +143,8 @@ def plot_xsection(volume, maps, line_num, title, png_name, cfg, cmap="prism") ->
         plt.plot(range(cfg.cube_shape[0]), maps[line_num, :, i], "k-", lw=0.3)
     plt.savefig(os.path.join(cfg.work_subfolder, png_name), format="png")
     plt.close(1)
-
+    """
+    print('passed')
 
 def plot_3D_faults_plot(cfg, faults, plot_faults=True, plot_throws=True) -> None:
     """
@@ -612,7 +615,7 @@ def plot_facies_qc(cfg, lith, seismic, facies, maps) -> None:
     Returns
     -------
     None
-    """
+
     plt = import_matplotlib()
     from itertools import groupby
     import matplotlib as mpl
@@ -670,7 +673,8 @@ def plot_facies_qc(cfg, lith, seismic, facies, maps) -> None:
 
     fig.savefig(os.path.join(cfg.work_subfolder, "QC_plot__Facies_FullStackCumulativeSum.png"))
     plt.close()
-
+    """
+    print('passed')
 
 def infill_surface(surface: np.ndarray) -> np.ndarray:
     """

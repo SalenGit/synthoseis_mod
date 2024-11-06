@@ -962,7 +962,7 @@ class Closures(Horizons, Geomodel, Parameters):
         label_values_all, labels_clean_all = self.parse_label_values_and_counts(
             labels_clean_all
         )
-        self.write_cube_to_disk(self.all_closure_segments[:], "all_closure_segments")
+        #self.write_cube_to_disk(self.all_closure_segments[:], "all_closure_segments")
 
         # Assign fluid types
         (
@@ -1156,9 +1156,9 @@ class Closures(Horizons, Geomodel, Parameters):
             salt_closures_gas_grown = np.zeros_like(self.salt_closures_gas[:])
 
             if np.max(self.salt_closures_oil[:]) > 0.0:
-                self.write_cube_to_disk(
-                    self.salt_closures_oil[:], "salt_closures_oil_initial"
-                )
+                #self.write_cube_to_disk(
+                #    self.salt_closures_oil[:], "salt_closures_oil_initial"
+                #)
                 print(
                     f"Salt-bounded Oil Closure voxel count: {self.salt_closures_oil[:][self.salt_closures_oil[:] > 0].size}"
                 )
@@ -1168,9 +1168,9 @@ class Closures(Horizons, Geomodel, Parameters):
                     f"Salt-bounded Oil Closure voxel count: {self.salt_closures_oil[:][self.salt_closures_oil[:] > 0].size}"
                 )
             if np.max(self.salt_closures_gas[:]) > 0.0:
-                self.write_cube_to_disk(
-                    self.salt_closures_gas[:], "salt_closures_gas_initial"
-                )
+                #self.write_cube_to_disk(
+                #    self.salt_closures_gas[:], "salt_closures_gas_initial"
+                #)
                 print(
                     f"Salt-bounded Gas Closure voxel count: {self.salt_closures_gas[:][self.salt_closures_gas[:] > 0].size}"
                 )
@@ -1180,9 +1180,9 @@ class Closures(Horizons, Geomodel, Parameters):
                     f"Salt-bounded Gas Closure voxel count: {self.salt_closures_gas[:][self.salt_closures_gas[:] > 1].size}"
                 )
             if np.max(self.salt_all_closures[:]) > 0.0:
-                self.write_cube_to_disk(
-                    self.salt_all_closures[:], "salt_all_closures_initial"
-                )  # maybe remove later
+                #self.write_cube_to_disk(
+                #    self.salt_all_closures[:], "salt_all_closures_initial"
+                #)  # maybe remove later
                 print(
                     f"Salt-bounded All Closure voxel count: {self.salt_all_closures[:][self.salt_all_closures[:] > 0].size}"
                 )
@@ -1193,7 +1193,7 @@ class Closures(Horizons, Geomodel, Parameters):
                 )
             else:
                 salt_all_closures_grown = np.zeros_like(self.salt_all_closures)
-
+            '''
             if np.max(self.salt_closures_oil[:]) > 0.0:
                 self.write_cube_to_disk(
                     self.salt_closures_oil[:], "salt_closures_oil_grown"
@@ -1206,7 +1206,7 @@ class Closures(Horizons, Geomodel, Parameters):
                 self.write_cube_to_disk(
                     self.salt_all_closures[:], "salt_all_closures_grown"
                 )  # maybe remove later
-
+            '''
             (
                 self.salt_closures_oil[:],
                 self.n_salt_closures_oil,
@@ -1245,7 +1245,7 @@ class Closures(Horizons, Geomodel, Parameters):
             )
 
         # Write hc_closure_codes to disk
-        self.write_cube_to_disk(hc_closure_codes, "closure_segments_hc_voxelcount")
+        #self.write_cube_to_disk(hc_closure_codes, "closure_segments_hc_voxelcount")
 
         # Create closure volumes by type
         if self.simple_closures[:] is None:
@@ -1285,16 +1285,16 @@ class Closures(Horizons, Geomodel, Parameters):
         all_closures_final[:][self.gas_closures[:] > 0] = 1
         all_closures_final[:][self.gas_closures[:] > 0] = 1
         # Write all_closures_final to disk
-        self.write_cube_to_disk(all_closures_final.astype("uint8"), "trap_label")
+        #self.write_cube_to_disk(all_closures_final.astype("uint8"), "trap_label")
 
         # add any oil/gas/brine closures into reservoir in case missed
         self.faults.reservoir[:][self.oil_closures[:] > 0] = 1
         self.faults.reservoir[:][self.gas_closures[:] > 0] = 1
         self.faults.reservoir[:][self.brine_closures[:] > 0] = 1
         # write reservoir_label to disk
-        self.write_cube_to_disk(
-            self.faults.reservoir[:].astype("uint8"), "reservoir_label"
-        )
+        #self.write_cube_to_disk(
+        #    self.faults.reservoir[:].astype("uint8"), "reservoir_label"
+        #)
 
         if self.cfg.qc_plots:
             from datagenerator.util import plot_xsection
@@ -1834,21 +1834,22 @@ class Closures(Horizons, Geomodel, Parameters):
 
     def write_closure_volumes_to_disk(self):
         # Create files for closure volumes
-        self.write_cube_to_disk(self.brine_closures[:], "closure_segments_brine")
-        self.write_cube_to_disk(self.oil_closures[:], "closure_segments_oil")
-        self.write_cube_to_disk(self.gas_closures[:], "closure_segments_gas")
+        #self.write_cube_to_disk(self.brine_closures[:], "closure_segments_brine")
+        #self.write_cube_to_disk(self.oil_closures[:], "closure_segments_oil")
+        #self.write_cube_to_disk(self.gas_closures[:], "closure_segments_gas")
         # Create combined HC cube by adding oil and gas closures
         self.hc_labels[:] = (self.oil_closures[:] + self.gas_closures[:]).astype(
             "uint8"
         )
+        '''
         self.write_cube_to_disk(self.hc_labels[:], "closure_segments_hc")
-
+        
         if self.cfg.model_qc_volumes:
             self.write_cube_to_disk(self.closure_segments, "closure_segments_raw_all")
             self.write_cube_to_disk(self.simple_closures, "closure_segments_simple")
             self.write_cube_to_disk(self.strat_closures, "closure_segments_strat")
             self.write_cube_to_disk(self.fault_closures, "closure_segments_fault")
-
+        '''
         # Triple check that no small closures exist in the final closure files
         for i, c in enumerate(
             [
@@ -3139,6 +3140,7 @@ def flood_fill_heap(test_array, empty_value=1.0e22, quiet=True):
             np.percentile(validPoints, 99),
             np.percentile(validPoints, 100),
         )
+        '''
         from datagenerator.util import import_matplotlib
 
         plt = import_matplotlib()
@@ -3149,6 +3151,7 @@ def flood_fill_heap(test_array, empty_value=1.0e22, quiet=True):
         plt.show()
         plt.savefig("flood_fill.png", format="png")
         plt.close()
+        '''
 
         print("     ... min & max for surface = ", amin, amax)
 
@@ -3167,7 +3170,7 @@ def flood_fill_heap(test_array, empty_value=1.0e22, quiet=True):
     # Initialize output array as max value test_array except edges
     output_array = np.copy(input_array)
     output_array[inside_mask] = h_max
-
+    '''
     if not quiet:
         plt.figure(6)
         plt.clf()
@@ -3176,6 +3179,7 @@ def flood_fill_heap(test_array, empty_value=1.0e22, quiet=True):
         plt.show()
         plt.savefig("flood_fill2.png", format="png")
         plt.close()
+    '''
 
     # Build priority queue and place edge pixels into priority queue
     # Last value is flag to indicate if cell is an edge cell

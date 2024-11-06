@@ -182,7 +182,7 @@ class Horizons:
         if verbose:
             import os
             from datagenerator.util import import_matplotlib
-
+            '''
             plt = import_matplotlib()
             print(f"strike angle = {strike_angle}")
             print(f"dip angle = {dip_angle}")
@@ -195,6 +195,7 @@ class Horizons:
             plt.colorbar()
             plt.savefig(os.path.join(self.cfg.work_subfolder, "dipping_plane.png"))
             plt.close()
+            '''
         return z
 
     @staticmethod
@@ -302,7 +303,7 @@ class Horizons:
             onlaps[..., count] = depth_maps_gaps[..., h]
 
         # Write to disk
-        self.write_maps_to_disk(onlaps * self.cfg.digi, "depth_maps_onlaps")
+        #self.write_maps_to_disk(onlaps * self.cfg.digi, "depth_maps_onlaps")
 
         if self.cfg.hdf_store:
             # Write onlap maps to hdf
@@ -324,7 +325,7 @@ class Horizons:
                     f"Fan horizon number: {horizon} Max thickness: {np.nanmax(thickness_map)}"
                 )
             fan_horizons[..., count] = z[..., horizon]
-        self.write_maps_to_disk(fan_horizons, "depth_maps_fans")
+        #self.write_maps_to_disk(fan_horizons, "depth_maps_fans")
 
 
 class RandomHorizonStack(Horizons):
@@ -906,8 +907,9 @@ class BasinFloorFans(Horizons):
 
         # Plot the fan
         if self.cfg.qc_plots:
+            '''
             from datagenerator.util import import_matplotlib
-
+            
             plt = import_matplotlib()
             plt.figure(1)
             plt.clf()
@@ -919,6 +921,8 @@ class BasinFloorFans(Horizons):
                     self.cfg.work_subfolder, f"random_fan_layer{layer_number}.png"
                 )
             )
+            '''
+            print('passed')
 
         self.fan_thicknesses.append(zi)
         return zi
@@ -1174,7 +1178,7 @@ class BasinFloorFans(Horizons):
 
         Display an inline and crossline with the basin floor fan in red in cross-section
         Inlay a map of the fan in each subplot
-        """
+        
         from datagenerator.util import import_matplotlib
 
         plt = import_matplotlib()
@@ -1235,6 +1239,8 @@ class BasinFloorFans(Horizons):
             os.path.join(self.cfg.work_subfolder, f"BasinFloorFan_layer_{lyrnum}.png")
         )
         plt.close()
+        """
+        print('passed')
 
 
 class Channel(Horizons):

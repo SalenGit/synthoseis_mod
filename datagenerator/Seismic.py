@@ -192,10 +192,12 @@ class SeismicVolume(Geomodel):
                 [cumsum[x, ...] for x, _ in enumerate(self.angles)]
             )
             rai_fullstack_scaled = self._scale_seismic(rai_fullstack)
+            '''
             self.write_cube_to_disk(
                 rai_fullstack_scaled,
                 f"{fname}fullstack",
             )
+            '''
         return normalised_cumsum
 
     def apply_augmentations(self, data, name="cumsum"):
@@ -204,8 +206,10 @@ class SeismicVolume(Geomodel):
         for i, ang in enumerate(self.cfg.incident_angles):
             data = augmented_data[i, ...]
             fname = f"seismicCubes_{name}_{ang}_degrees_normalized_augmented"
+            '''
             self.write_cube_to_disk(data, fname)
             self.write_cube_to_disk(augmented_labels, "hc_closures_augmented")
+            '''
 
     def apply_rmo(self, data, name="cumsum_RMO"):
         """Apply RMO to the cumsum with noise. Note rmo application expects angle in last dimension"""
@@ -290,12 +294,12 @@ class SeismicVolume(Geomodel):
         for i, ang in enumerate(self.cfg.incident_angles):
             data = scaled_data[i, ...]
             fname = f"{name}_{ang}_degrees"
-            self.write_cube_to_disk(data, fname)
+            #self.write_cube_to_disk(data, fname)
         normed_data = normalize_seismic(scaled_data)
         for i, ang in enumerate(self.cfg.incident_angles):
             data = normed_data[i, ...]
             fname = f"{name}_{ang}_degrees_normalized"
-            self.write_cube_to_disk(data, fname)
+            #self.write_cube_to_disk(data, fname)
         return normed_data
 
     @staticmethod
@@ -362,6 +366,7 @@ class SeismicVolume(Geomodel):
                 write_data_to_hdf(n, d, self.cfg.hdf_master)
         if self.cfg.model_qc_volumes:
             # Write raw RFC values to disk
+            '''
             _ = [
                 self.write_cube_to_disk(
                     self.rfc_raw[x, ...],
@@ -369,7 +374,9 @@ class SeismicVolume(Geomodel):
                 )
                 for x in range(self.rfc_raw.shape[0])
             ]
+            '''
             max_amp = np.max(np.abs(self.rfc_raw[:]))
+            '''
             _ = [
                 self.write_cube_to_disk(
                     self.rfc_raw[x, ...],
@@ -377,6 +384,7 @@ class SeismicVolume(Geomodel):
                 )
                 for x in range(self.rfc_raw.shape[0])
             ]
+            '''
 
     def noise_3d(self, cube_shape, verbose=False):
         if verbose:
@@ -574,6 +582,7 @@ class SeismicVolume(Geomodel):
         from scipy.interpolate import UnivariateSpline
 
         input_indices = np.arange(nsamples)
+        '''
         if self.cfg.qc_plots:
             from datagenerator.util import import_matplotlib
 
@@ -589,6 +598,7 @@ class SeismicVolume(Geomodel):
             plt.savefig(
                 os.path.join(self.cfg.work_subfolder, "rmo_1d.png"), format="png"
             )
+        '''
         # generate 1 to 3 randomly located velocity fractions at random depth indices
         for _ in range(250):
             num_tie_points = np.random.randint(low=1, high=4)
@@ -619,6 +629,7 @@ class SeismicVolume(Geomodel):
                 )
             if np.abs(output_indices[:, i] - input_indices).max() < 10.0:
                 break
+        '''
         for i, iangle in enumerate(inc_angle_list):
             if self.cfg.qc_plots:
                 plt.plot(
@@ -649,9 +660,9 @@ class SeismicVolume(Geomodel):
                     os.path.join(self.cfg.work_subfolder, "rmo_arrival_time.png"),
                     format="png",
                 )
-
+        '''
         if return_plot:
-            return output_indices, plt
+            return output_indices, ''#plt
         else:
             return output_indices
 
@@ -1346,6 +1357,7 @@ class SeismicVolume(Geomodel):
 
     def write_property_volumes_to_disk(self):
         """Write Rho, Vp, Vs volumes to disk."""
+        '''
         self.write_cube_to_disk(
             self.rho[:],
             "qc_volume_rho",
@@ -1358,6 +1370,8 @@ class SeismicVolume(Geomodel):
             self.vs[:],
             "qc_volume_vs",
         )
+        '''
+        print('passed')
 
 
 class ElasticProperties3D:

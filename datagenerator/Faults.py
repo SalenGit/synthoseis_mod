@@ -169,12 +169,14 @@ class Faults(Horizons, Geomodel):
             ) = self.salt_model.update_depth_maps_with_salt_segments_drag()
 
         # # Write the faulted maps to disk
+        '''
         self.write_maps_to_disk(
             self.faulted_depth_maps[:] * self.cfg.digi, "depth_maps"
         )
         self.write_maps_to_disk(
             self.faulted_depth_maps_gaps[:] * self.cfg.digi, "depth_maps_gaps"
         )
+        '''
         self.write_onlap_episodes(
             self.onlap_horizon_list[:],
             self.faulted_depth_maps_gaps[:],
@@ -235,18 +237,23 @@ class Faults(Horizons, Geomodel):
                 self.vols.crevasse,
                 self.maps.channels,
             )
+            '''
             if self.cfg.model_qc_volumes:
                 self.vols.write_cube_to_disk(
                     self.vols.channel_segments, "channel_segments"
                 )
+            '''
 
         if self.cfg.model_qc_volumes:
             # Output files if qc volumes required
+            '''
             self.vols.write_cube_to_disk(self.faulted_age_volume[:], "geologic_age")
             self.vols.write_cube_to_disk(
                 self.faulted_onlap_segments[:], "onlap_segments"
             )
-            self.vols.write_cube_to_disk(self.fault_planes[:], "fault_segments")
+            '''
+            self.vols.write_cube_to_disk(self.fault_planes[:].astype(bool), "fault_segments")
+            '''
             self.vols.write_cube_to_disk(
                 self.fault_intersections[:], "fault_intersection_segments"
             )
@@ -256,6 +263,7 @@ class Faults(Horizons, Geomodel):
             self.vols.write_cube_to_disk(
                 self.fault_plane_azimuth[:], "fault_segments_azimuth"
             )
+            '''
         if self.cfg.hdf_store:
             # Write faulted age, onlap and fault segment cubes to hdf
             for n, d in zip(
@@ -492,7 +500,7 @@ class Faults(Horizons, Geomodel):
 
         if self.cfg.verbose:
             print("\n\n ... After infilling ...")
-        self.write_cube_to_disk(work_cube_sealed.astype("uint8"), "sealed_label")
+        #self.write_cube_to_disk(work_cube_sealed.astype("uint8"), "sealed_label")
 
         # Clip cubes and convert from samples to units
         work_cube_lith = np.clip(work_cube_lith, -1.0, 1.0)  # clip lith to [-1, +1]
@@ -582,7 +590,8 @@ class Faults(Horizons, Geomodel):
         reservoir = (work_cube_lith == 1) * 1.0
         reservoir_dilated = binary_dilation(reservoir)
         self.reservoir[:] = reservoir_dilated
-
+        
+        '''
         if self.cfg.model_qc_volumes:
             self.write_cube_to_disk(self.faulted_lithology[:], "faulted_lithology")
             self.write_cube_to_disk(
@@ -597,6 +606,7 @@ class Faults(Horizons, Geomodel):
                     ),
                     "salt",
                 )
+        '''
 
     def create_qc_plots(self) -> None:
         """
@@ -690,9 +700,11 @@ class Faults(Horizons, Geomodel):
 
         # Build faults, and sum displacements
         displacements_classification, hockeys = self.build_faults(fault_params)
+        '''
         if self.cfg.model_qc_volumes:
             # Write max fault throw cube to disk
             self.vols.write_cube_to_disk(self.max_fault_throw[:], "max_fault_throw")
+        '''
         self.cfg.write_to_logfile(
             f"Hockey_Sticks generated: {sum(hockeys)}",
             mainkey="model_parameters",
@@ -1324,6 +1336,7 @@ class Faults(Horizons, Geomodel):
                 plt = import_matplotlib()
 
                 plt.close(35)
+                '''
                 plt.figure(35, figsize=(15, 10))
                 plt.clf()
                 plt.imshow(_faulted_depths[inline, :, :].T, aspect="auto", cmap="prism")
@@ -1375,7 +1388,7 @@ class Faults(Horizons, Geomodel):
 
                 hockey_sticks.append(hockey_stick)
                 print("   ...hockey_sticks = " + ", " + str(hockey_sticks))
-
+                '''
         # print final count
         max_fault_throw_list, max_fault_throw_list_counts = np.unique(
             self.max_fault_throw, return_counts=True
@@ -1511,7 +1524,7 @@ class Faults(Horizons, Geomodel):
             The faluted depth maps
         faulted_geologic_age : _type_
             _description_
-        """
+        
         import os
         from datagenerator.util import import_matplotlib
 
@@ -1576,7 +1589,9 @@ class Faults(Horizons, Geomodel):
         )
         plt.savefig(plot_name, format="png")
         plt.close()
-
+        """
+        print('passed')
+        
     def improve_depth_maps_post_faulting(
         self,
         unfaulted_geologic_age: np.ndarray,
@@ -2477,7 +2492,7 @@ class Faults(Horizons, Geomodel):
         Returns
         -------
         None
-        """
+
         import os
         from math import degrees
         from datagenerator.util import import_matplotlib
@@ -2546,6 +2561,8 @@ class Faults(Horizons, Geomodel):
         )
         plt.savefig(image_path, format="png")
         plt.close(fig)
+        """
+        print('passed')
 
     @staticmethod
     def create_binary_segmentations_post_faulting(cube, segmentation_threshold):

@@ -29,7 +29,7 @@
     "min": 0.05,
     "max": 0.25
   },
-  "extra_qc_plots": true,
+  "extra_qc_plots": false,
   "verbose": true,
   "partial_voxels": true,
   "variable_shale_ng": false,

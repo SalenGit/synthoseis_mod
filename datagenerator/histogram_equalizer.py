@@ -223,13 +223,14 @@ def normalize_seismic(
     if save_file is not None:
         print("Saving centerbin data to: " + save_file)
         sys.stdout.flush()
-
+        '''
         np.savez(
             save_file,
             centerbins=centerbins,
             target_centerbins=target_centerbins,
             mean=seismic_mean,
         )
+        '''
         print("Done.")
         sys.stdout.flush()
 
