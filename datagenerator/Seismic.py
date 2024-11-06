@@ -10,6 +10,10 @@ from datagenerator.util import write_data_to_hdf
 from datagenerator.wavelets import generate_wavelet, plot_wavelets
 from rockphysics.RockPropertyModels import select_rpm, RockProperties, EndMemberMixing
 
+# module.py
+class ExitMainFunction(Exception):
+    """Custom exception to exit the main function."""
+    pass
 
 class SeismicVolume(Geomodel):
     """
