@@ -17,7 +17,10 @@ Read our documentation: https://sede-open.github.io/synthoseis/datagenerator.htm
 
 ## Installation
 
-We provide an [environment.yml](environment.yml) to install the required packages for synthoseis.
+使用以下命令安装conda环境:
+```
+conda env create -f requirements.yml
+```
 
 ## Resources
 
