@@ -19,7 +19,7 @@ Read our documentation: https://sede-open.github.io/synthoseis/datagenerator.htm
 
 使用以下命令安装conda环境:
 ```
-conda env create -f requirements.yml
+conda env create -f environment.yml
 ```
 
 ## Resources
