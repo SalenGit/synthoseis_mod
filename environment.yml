@@ -1,10 +1,18 @@
-h5py
-matplotlib
-numpy
-scikit-image
-scipy
-tqdm
-pytables
-plotly
-bruges
-noise
+name: synthoseis
+channels:
+  - conda-forge
+  - plotly
+  - defaults
+dependencies:
+  - h5py
+  - matplotlib
+  - scikit-image
+  - scipy
+  - tqdm
+  - pytables
+  - plotly
+  - pip:
+    - bruges
+    - noise
+    - joblib
+    - numpy==1.26.4

@@ -10,11 +10,6 @@ from datagenerator.util import write_data_to_hdf
 from datagenerator.wavelets import generate_wavelet, plot_wavelets
 from rockphysics.RockPropertyModels import select_rpm, RockProperties, EndMemberMixing
 
-# module.py
-class ExitMainFunction(Exception):
-    """Custom exception to exit the main function."""
-    pass
-
 class SeismicVolume(Geomodel):
     """
     SeismicVolume Class
@@ -184,7 +179,8 @@ class SeismicVolume(Geomodel):
                 rfc_fullstack_scaled,
                 f"{fname}fullstack",
             )
-            #raise ValueError
+            
+            raise ValueError
 
         cumsum = self.apply_cumsum(bandlimited)
         if filename_suffix == "":
