@@ -452,11 +452,11 @@ class SaltModel:
             except:
                 pass
 
-        if self.cfg.model_qc_volumes:
-            np.save(
-                f"{self.cfg.work_subfolder}/depth_maps_salt_prepushdown.npy",
-                depth_maps_salt,
-            )
+        #if self.cfg.model_qc_volumes:
+        #    np.save(
+        #        f"{self.cfg.work_subfolder}/depth_maps_salt_prepushdown.npy",
+        #        depth_maps_salt,
+        #    )
 
         depth_maps_salt = push_down_remove_negative_thickness(depth_maps_salt)
 
@@ -476,7 +476,7 @@ class SaltModel:
 
         # self.cfg.h5file.root.ModelData.faulted_depth_maps[:] = depth_maps
         # self.cfg.h5file.root.ModelData.faulted_depth_maps_gaps[:] = depth_maps_gaps_salt
-
+        '''
         if self.cfg.model_qc_volumes:
             np.save(f"{self.cfg.work_subfolder}/depth_maps_salt.npy", depth_maps_salt)
             np.save(
@@ -484,7 +484,7 @@ class SaltModel:
                 depth_maps_gaps_salt,
             )
             np.save(f"{self.cfg.work_subfolder}/facies_label.npy", _label)
-
+        '''
         return depth_maps_salt, depth_maps_gaps_salt
 
 

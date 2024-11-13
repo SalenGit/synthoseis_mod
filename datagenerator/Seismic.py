@@ -176,7 +176,7 @@ class SeismicVolume(Geomodel):
             )
             rfc_fullstack_scaled = self._scale_seismic(rfc_fullstack)
             self.write_cube_to_disk(
-                rfc_fullstack_scaled,
+                rfc_fullstack_scaled.astype(np.float16),
                 f"{fname}fullstack",
             )
             
